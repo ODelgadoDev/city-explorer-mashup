@@ -2,15 +2,11 @@ import { useState } from 'react';
 import './App.css';
 import './index.css';
 import Map from './Map';
-import {
-  getWeather, getImages, convert, geocode
-} from './api';
-import type {
-  Weather, ImageHit, ConvertResp, Geocode
-} from './api';
+import { getWeather, getImages, convert, geocode } from './api';
+import type { Weather, ImageHit, ConvertResp, Geocode } from './api';
 
 export default function App() {
-  // Input vacío por defecto
+  // Input VACÍO por defecto
   const [city, setCity] = useState<string>('');
   const [weather, setWeather] = useState<Weather | null>(null);
   const [pics, setPics] = useState<ImageHit[]>([]);
@@ -61,17 +57,27 @@ export default function App() {
   };
 
   return (
-    <div className="app-wrap" style={{ paddingTop: 12 }}>
-      <h1 style={{ marginBottom: 12 }}>🏙️ City Explorer (Mashup)</h1>
+    <div className="app-wrap" style={{ paddingTop: 10 }}>
+      <h1 style={{ margin: '0 0 10px' }}>🏙️ City Explorer (Mashup)</h1>
 
       {/* Barra de búsqueda */}
-      <div className="row" style={{ gap: 10, marginBottom: 10 }}>
+      <div className="row" style={{ gap: 8, marginBottom: 8 }}>
         <input
           value={city}
-          onChange={(e) => setCity(e.target.value)}
+          onChange={(e) => {
+            setCity(e.target.value);
+            if (err) setErr('');
+          }}
           onKeyDown={onKey}
           placeholder="Escribe una ciudad (ej. Buenos Aires, Madrid, Monterrey)..."
           className="input"
+          name="city"
+          id="cityInput"
+          inputMode="search"
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck={false}
         />
         <button onClick={buscar} disabled={loading} className="btn">
           {loading ? 'Cargando...' : 'Buscar'}
@@ -80,14 +86,14 @@ export default function App() {
 
       {/* Alertas */}
       {err && (
-        <div className="alert" style={{ marginTop: 8, marginBottom: 10 }}>
+        <div className="alert" style={{ margin: '6px 0 8px' }}>
           ⚠️ {err}
         </div>
       )}
 
       {/* Clima */}
       {weather && (
-        <div className="panel" style={{ marginTop: 8, marginBottom: 10 }}>
+        <div className="panel" style={{ margin: '6px 0 8px' }}>
           <h2 className="title" style={{ margin: 0 }}>
             {city.trim()} <span className="muted">/ {weather.country}</span>
           </h2>
@@ -95,16 +101,17 @@ export default function App() {
         </div>
       )}
 
-      {/* Mapa (reduce altura ajustando .map en App.css si quieres) */}
+      {/* Mapa */}
       {coord && (
-        <div style={{ marginTop: 8, marginBottom: 10 }}>
+        <div style={{ margin: '6px 0 8px' }}>
+          {/* Si quieres más compacto, baja la altura en App.css (.map { height: 240px; }) */}
           <Map lat={coord.lat} lon={coord.lon} />
         </div>
       )}
 
       {/* Conversión */}
       {conv && (
-        <p className="text" style={{ marginTop: 4, marginBottom: 8 }}>
+        <p className="text" style={{ margin: '4px 0 8px' }}>
           💱 100 USD ≈ <b>{conv.result.toFixed(2)} MXN</b>{' '}
           <span className="muted">(tasa {conv.rate.toFixed(2)})</span>
         </p>
@@ -112,10 +119,7 @@ export default function App() {
 
       {/* Imágenes */}
       {pics.length > 0 && (
-        <div
-          className="grid"
-          style={{ gap: 8, marginTop: 8 }}
-        >
+        <div className="grid" style={{ gap: 8, marginTop: 8 }}>
           {pics.map((p, i) => (
             <a
               key={i}
