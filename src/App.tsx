@@ -78,6 +78,16 @@ export default function App() {
           </a>
         ))}
       </div>
+
+      <div className="grid">
+  {(Array.isArray(pics) ? pics : []).map((p, i) => (
+    <a key={i} href={p.largeImageURL} target="_blank" rel="noreferrer" className="card">
+      <img src={p.previewURL} alt="" />
+    </a>
+  ))}
+</div>
     </div>
+    
+
   );
 }
