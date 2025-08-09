@@ -1,18 +1,11 @@
 import { useEffect, useRef } from 'react';
-
-// Declaración mínima para Leaflet por CDN
-declare global {
-  interface Window { L: any }
-}
-
+declare global { interface Window { L: any } }
 type Props = { lat: number; lon: number };
 
 function ensureLeaflet(): Promise<void> {
   return new Promise((resolve, reject) => {
-    // Si ya está cargado, listo
-    if (typeof window !== 'undefined' && (window as any).L) return resolve();
+    if (typeof window !== 'undefined' && window.L) return resolve();
 
-    // Agrega CSS si no existe
     if (!document.querySelector('link[data-leaflet]')) {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
@@ -21,7 +14,6 @@ function ensureLeaflet(): Promise<void> {
       document.head.appendChild(link);
     }
 
-    // Si ya hay un <script> cargándose, espera su onload
     const existing = document.querySelector<HTMLScriptElement>('script[data-leaflet]');
     if (existing) {
       existing.addEventListener('load', () => resolve());
@@ -29,7 +21,6 @@ function ensureLeaflet(): Promise<void> {
       return;
     }
 
-    // Inyecta el script y espera onload
     const script = document.createElement('script');
     script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
     script.async = true;
@@ -46,7 +37,6 @@ export default function Map({ lat, lon }: Props) {
 
   useEffect(() => {
     let map: any;
-
     (async () => {
       try {
         if (!lat || !lon || !ref.current) return;
@@ -58,15 +48,11 @@ export default function Map({ lat, lon }: Props) {
         }).addTo(map);
         L.marker([lat, lon]).addTo(map);
       } catch (e) {
-        // Evita crashear la app si Leaflet no carga
         console.error('Leaflet load/init error:', e);
       }
     })();
-
-    return () => {
-      try { map && map.remove(); } catch { /* noop */ }
-    };
+    return () => { try { map && map.remove(); } catch {} };
   }, [lat, lon]);
 
-  return <div className="map" />;
+  return <div ref={ref} className="map" style={{ height: 300, borderRadius: 8, overflow: 'hidden' }} />;
 }
