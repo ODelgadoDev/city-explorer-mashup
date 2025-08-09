@@ -1,8 +1,7 @@
 export async function handler(event) {
   const OWM_KEY = process.env.OWM_KEY;
   const city = new URLSearchParams(event.rawQuery).get('city') || 'Monterrey';
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&lang=es&appid=${OWM_KEY}`;
-
+  const API_KEY = process.env.OWM_KEY; // Para OpenWeather
   try {
     const r = await fetch(url);
     const d = await r.json();

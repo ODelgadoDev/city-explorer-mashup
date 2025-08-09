@@ -5,7 +5,7 @@ export async function handler(event) {
   const to   = params.get('to')   || 'MXN';
   const amount = Number(params.get('amount') || 100);
 
-  const url = `https://v6.exchangerate-api.com/v6/${XRATE_KEY}/latest/${from}`;
+  const API_KEY = process.env.XRATE_KEY; // Para ExchangeRate
 
   try {
     const r = await fetch(url);

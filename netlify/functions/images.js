@@ -1,7 +1,7 @@
 export async function handler(event) {
   const PIXABAY_KEY = process.env.PIXABAY_KEY;
   const q = new URLSearchParams(event.rawQuery).get('query') || 'city';
-  const url = `https://pixabay.com/api/?key=${PIXABAY_KEY}&q=${encodeURIComponent(q)}&image_type=photo&per_page=8`;
+  const API_KEY = process.env.PIXABAY_KEY; // Para Pixabay
 
   try {
     const r = await fetch(url);
