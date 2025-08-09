@@ -9,7 +9,7 @@ Este proyecto fue desarrollado como parte de una práctica académica para poner
 ## 👨‍💻 Integrantes del equipo
 
 - **Jesús Orlando Delgado Azar**
-- **Ángel López de Santiago**
+- **Jose Ángel López de Santiago**
 - **Héctor Antonio Terrazas Guevara**
 
 ---
