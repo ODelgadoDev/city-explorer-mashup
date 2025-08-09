@@ -1,0 +1,14 @@
+:root { --bg:#0f172a; --panel:#111827; --muted:#94a3b8; --primary:#22d3ee; }
+.app-wrap { max-width: 980px; margin: 0 auto; padding: 16px; color: #e2e8f0; background: var(--bg); min-height: 100vh; font-family: system-ui, Arial; }
+.row { display: flex; gap: 8px; }
+.input { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #334155; background: #0b1220; color: #e2e8f0; }
+.btn { padding: 10px 14px; border-radius: 8px; border: 0; background: var(--primary); color: #0b1220; font-weight: 700; cursor: pointer; }
+.alert { margin-top: 12px; background: #7f1d1d; color: #fecaca; padding: 10px; border-radius: 8px; }
+.panel { margin-top: 16px; background: var(--panel); padding: 12px; border-radius: 8px; border: 1px solid #374151; }
+.title { margin: 0; }
+.muted { color: var(--muted); }
+.text { margin-top: 12px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 10px; margin-top: 16px; }
+.card { background: var(--panel); border: 1px solid #374151; border-radius: 8px; overflow: hidden; display: block; }
+.card img { width: 100%; display: block; }
+.map { height: 360px; border-radius: 8px; overflow: hidden; margin-top: 12px; }
